@@ -1,6 +1,7 @@
 package br.com.exercicio;
 
 import br.com.exercicio.localidade.Localizacao;
+import br.com.exercicio.localidade.Planalto;
 import br.com.exercicio.movimento.FormasMovimentacao;
 import br.com.exercicio.movimento.Movimentacao;
 import br.com.exercicio.rotacionamento.FormasRotacionar;
@@ -9,35 +10,17 @@ import br.com.exercicio.rotacionamento.Rotacao;
 
 public class Sonda implements Movimentacao, Rotacao {
     private Localizacao localizacaoSonda;
+    private Planalto planalto;
 
-    public Sonda (Localizacao localizacaoSonda) {
+    public Sonda (Planalto planalto, Localizacao localizacaoSonda) throws InstantiationError {
         this.localizacaoSonda = localizacaoSonda;
-    }
-
-    public Localizacao getLocalizacaoSonda() {
-        int posicaoX = localizacaoSonda.getX();
-        int posicaoY = localizacaoSonda.getY();
-        int index = localizacaoSonda.getOrientacao().ordinal();
-        return new Localizacao(posicaoX, posicaoY, Orientacao.values()[index]);
+        planalto.adicionarSonda(this);
+        this.planalto = planalto;
     }
 
     @Override
     public void mover(FormasMovimentacao formasMovimentacao) {
-        int posicaoX = localizacaoSonda.getX();
-        int posicaoY = localizacaoSonda.getY();
-
-        switch (localizacaoSonda.getOrientacao()) {
-            case NORTE: posicaoY++;
-                break;
-            case SUL: posicaoY--;
-                break;
-            case LESTE: posicaoX++;
-                break;
-            case OESTE: posicaoX--;
-                break;
-        }
-
-        localizacaoSonda.atualizar(posicaoX, posicaoY);
+        localizacaoSonda = getLocalizacaoSonda(formasMovimentacao);
     }
 
     @Override
@@ -59,5 +42,34 @@ public class Sonda implements Movimentacao, Rotacao {
             sentidoAtualIndex = 0;
 
         this.localizacaoSonda.atualizar(Orientacao.values()[sentidoAtualIndex]);
+    }
+
+    public Localizacao getLocalizacaoSonda() {
+        int posicaoX = localizacaoSonda.getX();
+        int posicaoY = localizacaoSonda.getY();
+        int index = localizacaoSonda.getOrientacao().ordinal();
+        return new Localizacao(posicaoX, posicaoY, Orientacao.values()[index]);
+    }
+
+    public Localizacao getLocalizacaoSonda(FormasMovimentacao formasMovimentacao) {
+        int posicaoX = localizacaoSonda.getX();
+        int posicaoY = localizacaoSonda.getY();
+
+        switch (localizacaoSonda.getOrientacao()) {
+            case NORTE: posicaoY++;
+                break;
+            case SUL: posicaoY--;
+                break;
+            case LESTE: posicaoX++;
+                break;
+            case OESTE: posicaoX--;
+                break;
+        }
+        int index = localizacaoSonda.getOrientacao().ordinal();
+        return new Localizacao(posicaoX, posicaoY, Orientacao.values()[index]);
+    }
+
+    public Planalto getPlanalto() {
+        return planalto;
     }
 }

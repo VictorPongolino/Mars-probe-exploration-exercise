@@ -36,7 +36,6 @@ public class Localizacao {
 
     public void atualizar (int x, int y) {
 
-
         this.x = x;
         this.y = y;
     }

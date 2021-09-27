@@ -1,5 +1,7 @@
 package br.com.exercicio.controle;
 
+import br.com.exercicio.controle.verificacao.VerificarColisoesPlanalto;
+import br.com.exercicio.controle.verificacao.VerificarSondaLimitePlanalto;
 import br.com.exercicio.localidade.Planalto;
 import br.com.exercicio.Sonda;
 import br.com.exercicio.movimento.FormasMovimentacao;
@@ -21,7 +23,7 @@ public class Piloto implements Movimentacao {
         VerificarSondaLimitePlanalto verificarSondaLimitePlanalto = new VerificarSondaLimitePlanalto(this.planalto);
         verificarSondaLimitePlanalto.setProximoHandler(verificarColisoesPlanalto);
 
-        if (verificarSondaLimitePlanalto.verificar(sonda.getLocalizacaoSonda())) {
+        if (verificarSondaLimitePlanalto.verificar(sonda.getLocalizacaoSonda(FormasMovimentacao.FRENTE))) {
             sonda.mover(FormasMovimentacao.FRENTE);
         }
     }

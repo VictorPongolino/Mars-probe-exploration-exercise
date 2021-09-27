@@ -1,7 +1,8 @@
-package br.com.exercicio.controle;
+package br.com.exercicio.controle.verificacao;
 
 
 import br.com.exercicio.Sonda;
+import br.com.exercicio.controle.SondaComposite;
 import br.com.exercicio.localidade.Localizacao;
 import br.com.exercicio.localidade.Planalto;
 
