@@ -1,6 +1,7 @@
 package br.com.exercicio.localidade;
 
 import br.com.exercicio.Sonda;
+import br.com.exercicio.controle.verificacao.MoverSondaChain;
 import br.com.exercicio.controle.verificacao.VerificarColisoesPlanalto;
 import br.com.exercicio.controle.verificacao.VerificarSondaLimitePlanalto;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class Planalto {
     private int[][] limites;
     private List<Sonda> sondas = new ArrayList<>();
+    private MoverSondaChain moverSondaChain;
 
     public Planalto(int tamanhoX, int tamanhoY) {
         this.limites = new int[tamanhoX][tamanhoY];
@@ -21,12 +23,16 @@ public class Planalto {
     }
 
     public boolean isPermitidoDestinatario(Localizacao localizacao) {
-        VerificarColisoesPlanalto verificarColisoesPlanalto = new VerificarColisoesPlanalto(this);
+        if (moverSondaChain == null) {
+            VerificarColisoesPlanalto verificarColisoesPlanalto = new VerificarColisoesPlanalto(this);
 
-        VerificarSondaLimitePlanalto verificarSondaLimitePlanalto = new VerificarSondaLimitePlanalto(this);
-        verificarSondaLimitePlanalto.setProximoHandler(verificarColisoesPlanalto);
+            VerificarSondaLimitePlanalto verificarSondaLimitePlanalto = new VerificarSondaLimitePlanalto(this);
+            verificarSondaLimitePlanalto.setProximoHandler(verificarColisoesPlanalto);
 
-        return verificarSondaLimitePlanalto.verificar(localizacao);
+            this.moverSondaChain = verificarSondaLimitePlanalto;
+        }
+
+        return moverSondaChain.verificar(localizacao);
     }
 
     public void adicionarSonda(Sonda umaSonda) {
