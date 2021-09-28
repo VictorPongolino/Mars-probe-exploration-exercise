@@ -12,7 +12,7 @@ public class Sonda implements Movimentacao, Rotacao {
     private Localizacao localizacaoSonda;
     private Planalto planalto;
 
-    public Sonda (Planalto planalto, Localizacao localizacaoSonda) throws InstantiationError {
+    public Sonda (Planalto planalto, Localizacao localizacaoSonda) {
         this.localizacaoSonda = localizacaoSonda;
         planalto.adicionarSonda(this);
         this.planalto = planalto;
