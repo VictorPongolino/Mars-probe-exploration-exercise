@@ -7,6 +7,7 @@ import br.com.exercicio.localidade.Localizacao;
 import br.com.exercicio.localidade.Planalto;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class VerificarColisoesPlanalto extends MoverSondaChain{
@@ -16,9 +17,9 @@ public class VerificarColisoesPlanalto extends MoverSondaChain{
 
     @Override
     public boolean verificar(Localizacao localizacao) {
-        List<Localizacao> sondasLocalizacao = this.planalto.getSondas().stream()
+        Set<Localizacao> sondasLocalizacao = this.planalto.getSondas().stream()
                 .map(Sonda::getLocalizacaoSonda)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableSet());
 
         SondaComposite sondaComposite = new SondaComposite(sondasLocalizacao);
 

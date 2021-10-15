@@ -5,21 +5,19 @@ import br.com.exercicio.controle.verificacao.MoverSondaChain;
 import br.com.exercicio.controle.verificacao.VerificarColisoesPlanalto;
 import br.com.exercicio.controle.verificacao.VerificarSondaLimitePlanalto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Planalto {
     private int[][] limites;
-    private List<Sonda> sondas = new ArrayList<>();
+    private Set<Sonda> sondas = new HashSet<>();
     private MoverSondaChain moverSondaChain;
 
     public Planalto(int tamanhoX, int tamanhoY) {
         this.limites = new int[tamanhoX][tamanhoY];
     }
 
-    public List<Sonda> getSondas() {
-        return Collections.unmodifiableList(sondas);
+    public Set<Sonda> getSondas() {
+        return Collections.unmodifiableSet(sondas);
     }
 
     public boolean isPermitidoDestinatario(Localizacao localizacao) {

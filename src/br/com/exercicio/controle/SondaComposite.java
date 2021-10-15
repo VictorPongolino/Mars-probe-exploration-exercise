@@ -1,33 +1,26 @@
 package br.com.exercicio.controle;
 
 import br.com.exercicio.localidade.Localizacao;
+import br.com.exercicio.rotacionamento.Orientacao;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SondaComposite implements SondasPlanalto {
-    private List<Localizacao> sondas;
-    public SondaComposite (List<Localizacao> sondas) {
+    private Set<Localizacao> sondas;
+    public SondaComposite (Set<Localizacao> sondas) {
         this.sondas = sondas;
     }
 
     @Override
     public void imprimirLocalizacaoSonda() {
-        for (Localizacao localizacao : sondas) {
-            localizacao.imprimirLocalizacao();
-        }
+        sondas.forEach(Localizacao::imprimirLocalizacao);
     }
 
     @Override
     public boolean isAnySondaLocalizacao(int x, int y) {
-        for (Localizacao localizacao : sondas) {
-            int posicaoX = localizacao.getX();
-            int posicaoY = localizacao.getY();
-
-            if (posicaoX == x && posicaoY == y) {
-                return true;
-            }
-        }
-
-        return false;
+        return sondas.contains(new Localizacao(x, y, null));
     }
 }

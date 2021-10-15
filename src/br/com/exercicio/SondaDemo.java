@@ -1,23 +1,85 @@
 package br.com.exercicio;
 
-import br.com.exercicio.controle.Piloto;
 import br.com.exercicio.localidade.Localizacao;
+import br.com.exercicio.localidade.LocalizacaoIndisponivelException;
 import br.com.exercicio.localidade.Planalto;
-import br.com.exercicio.movimento.FormasMovimentacao;
 import br.com.exercicio.rotacionamento.Orientacao;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SondaDemo {
     public static void main(String[] args)  {
-        final int tamanhoPlanaltoX = 5, tamanhoPlanaltoY = 5;
-        Planalto planalto = new Planalto(tamanhoPlanaltoX, tamanhoPlanaltoY);
-        Localizacao localizacao = new Localizacao(2, 2, Orientacao.LESTE);
-        Sonda umaSonda = new Sonda(planalto, localizacao);
+        Map<String, Sonda> sondas = definirSondas();
+        Scanner scanner = new Scanner(System.in);
+        DemoCommand demoCommand = new DemoCommand();
+        while (true) {
+            System.out.println("\nInforme o ID de uma sonda válida: ");
+            Sonda sonda = null;
+            while ((sonda = sondas.get(scanner.next())) == null );
 
-        Piloto piloto = new Piloto(umaSonda, umaSonda.getPlanalto());
-        for (int i = 1; i < 5; i++) {
-            umaSonda.getLocalizacaoSonda().imprimirLocalizacao();
-            piloto.mover(FormasMovimentacao.FRENTE);
-            umaSonda.getLocalizacaoSonda().imprimirLocalizacao();
+            System.out.println("Informe uma operação: ");
+
+            String operacaoSonda = scanner.next();
+            demoCommand.executarOperacao(operacaoSonda, sonda);
         }
+    }
+
+    public static Map<String, Sonda> definirSondas() {
+        Map<String, Sonda> sondas = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+        int quantidade = 0;
+        System.out.println("\nQuantidade de sondas: ");
+        try {
+            do {
+                quantidade = Integer.parseInt(scanner.next());
+                if (quantidade <= 0) {
+                    System.err.println("Valor inválido, deve especificar um número acima de zero!");
+                }
+            }
+            while (quantidade <= 0);
+        }
+        catch (Exception e) {
+            System.err.println("Informe uma quantidade válida !");
+        }
+
+        while (true) {
+            try {
+                for (int i = 0; i < quantidade; i++) {
+                    System.out.println("\nX: ");
+                    int x = Integer.parseInt(scanner.next());
+                    System.out.println("Y: ");
+                    int y = Integer.parseInt(scanner.next());
+                    System.out.println("Orientação: ");
+                    Orientacao orientacao = Orientacao.valueOf(scanner.next().toUpperCase());
+                    Sonda novaSonda = criarUnicaSonda(x, y, orientacao);
+                    sondas.put("" + (i + 1), novaSonda);
+                }
+
+                return sondas;
+            }
+            catch (NumberFormatException nfe) {
+                System.err.println("Apenas números são aceitos !");
+            } catch (IllegalArgumentException iae) {
+                String valoresOrientacaoEsperadosVirgula = Stream.of(Orientacao.values()).map(Orientacao::name).collect(Collectors.joining(", "));
+                System.err.println("Falha ao encontrar a orientação, especifique uma orientação válida !");
+                System.out.println(valoresOrientacaoEsperadosVirgula);
+            } catch (LocalizacaoIndisponivelException lie) {
+                System.out.println("Verifique a localização da sonda !");
+            }
+            catch (Exception e) {
+                System.err.println("Não foi possível cadastrar esta sonda!");
+            }
+        }
+    }
+
+    public static Sonda criarUnicaSonda(final int x, final int y, final Orientacao orientacao) {
+        Planalto planalto = new Planalto(x, y);
+        Localizacao localizacao = new Localizacao(x, y, orientacao);
+        System.out.printf("Criando uma sonda em (%d, %d, %s) !", x, y, orientacao);
+        return new Sonda(planalto, localizacao);
     }
 }

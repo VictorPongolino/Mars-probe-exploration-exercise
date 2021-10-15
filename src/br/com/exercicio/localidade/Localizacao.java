@@ -18,6 +18,22 @@ public class Localizacao {
         return String.format("X=%d, Y=%d (%s - %d°)", this.x, this.y, nomeOrientacaoSentido, anguloSentido);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Localizacao that = (Localizacao) o;
+
+        if (x != that.x) return false;
+        return y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return y;
+    }
+
     public void imprimirLocalizacao() {
         System.out.println(this);
     }
