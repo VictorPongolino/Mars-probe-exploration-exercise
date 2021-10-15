@@ -38,7 +38,7 @@ public class Sonda implements Movimentacao, Rotacao {
 
         if (sentidoAtualIndex < 0)
             sentidoAtualIndex = todosSentidos.length;
-        else if (sentidoAtualIndex > todosSentidos.length)
+        else if (sentidoAtualIndex >= todosSentidos.length)
             sentidoAtualIndex = 0;
 
         this.localizacaoSonda.atualizar(Orientacao.values()[sentidoAtualIndex]);
