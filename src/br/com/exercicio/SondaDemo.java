@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SondaDemo {
+
+    private static final int X = 12, Y = 12;
+
     public static void main(String[] args)  {
         Map<String, Sonda> sondas = definirSondas();
         Scanner scanner = new Scanner(System.in);
@@ -49,9 +52,9 @@ public class SondaDemo {
         while (true) {
             try {
                 for (int i = 0; i < quantidade; i++) {
-                    System.out.println("\nX: ");
+                    System.out.println("\nPOS-X: ");
                     int x = Integer.parseInt(scanner.next());
-                    System.out.println("Y: ");
+                    System.out.println("POS-Y: ");
                     int y = Integer.parseInt(scanner.next());
                     System.out.println("Orientação: ");
                     Orientacao orientacao = Orientacao.valueOf(scanner.next().toUpperCase());
@@ -77,9 +80,10 @@ public class SondaDemo {
     }
 
     public static Sonda criarUnicaSonda(final int x, final int y, final Orientacao orientacao) {
-        Planalto planalto = new Planalto(x, y);
+        Planalto planalto = new Planalto(X, Y);
+        System.out.printf("\nPlanalto padrão em (%d, %d) !", X, Y);
         Localizacao localizacao = new Localizacao(x, y, orientacao);
-        System.out.printf("Criando uma sonda em (%d, %d, %s) !", x, y, orientacao);
+        System.out.printf("\nCriando uma sonda em (%d, %d, %s) !", x, y, orientacao);
         return new Sonda(planalto, localizacao);
     }
 }

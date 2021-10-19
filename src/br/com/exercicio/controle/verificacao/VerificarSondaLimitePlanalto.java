@@ -19,6 +19,6 @@ public class VerificarSondaLimitePlanalto extends MoverSondaChain{
             return verificarProximo(localizacao);
         }
 
-        return true;
+        return false;
     }
 }

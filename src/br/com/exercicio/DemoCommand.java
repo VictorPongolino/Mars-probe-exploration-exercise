@@ -1,5 +1,6 @@
 package br.com.exercicio;
 
+import br.com.exercicio.controle.SondaComposite;
 import br.com.exercicio.movimento.FormasMovimentacao;
 import br.com.exercicio.rotacionamento.FormasRotacionar;
 import br.com.exercicio.rotacionamento.Orientacao;
