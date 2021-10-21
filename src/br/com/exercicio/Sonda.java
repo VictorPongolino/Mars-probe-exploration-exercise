@@ -20,7 +20,7 @@ public class Sonda implements Movimentacao, Rotacao {
 
     @Override
     public void mover(FormasMovimentacao formasMovimentacao) {
-        localizacaoSonda = getLocalizacaoSonda(formasMovimentacao);
+        localizacaoSonda = movimentarSonda(formasMovimentacao);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Sonda implements Movimentacao, Rotacao {
         return new Localizacao(posicaoX, posicaoY, Orientacao.values()[index]);
     }
 
-    public Localizacao getLocalizacaoSonda(FormasMovimentacao formasMovimentacao) {
+    public Localizacao movimentarSonda(FormasMovimentacao formasMovimentacao) {
         int posicaoX = localizacaoSonda.getX();
         int posicaoY = localizacaoSonda.getY();
 

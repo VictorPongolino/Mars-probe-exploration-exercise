@@ -21,6 +21,6 @@ public class SondaComposite implements SondasPlanalto {
 
     @Override
     public boolean isAnySondaLocalizacao(int x, int y) {
-        return sondas.contains(new Localizacao(x, y, null));
+        return sondas.contains(new Localizacao(x, y));
     }
 }

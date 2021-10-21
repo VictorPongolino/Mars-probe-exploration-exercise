@@ -33,7 +33,7 @@ public class Piloto implements Movimentacao {
     public void mover(FormasMovimentacao formasMovimentacao) {
         criarOperacoesVerificacao();
 
-        if (moverSondaChain.verificar(sonda.getLocalizacaoSonda(FormasMovimentacao.FRENTE))) {
+        if (moverSondaChain.verificar(sonda.movimentarSonda(FormasMovimentacao.FRENTE))) {
             sonda.mover(FormasMovimentacao.FRENTE);
         }
     }

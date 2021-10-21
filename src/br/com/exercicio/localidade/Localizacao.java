@@ -7,15 +7,30 @@ public class Localizacao {
     private int y;
     private Orientacao orientacao;
 
-    public Localizacao(int x, int y, Orientacao orientacao) {
+    public Localizacao(int x, int y) {
+    	atualizar(x, y);
+	}
+
+	public Localizacao(int x, int y, Orientacao orientacao) {
         atualizar(x, y, orientacao);
     }
 
+	
+	public boolean hasOrientacao() {
+		return this.orientacao != null;
+	}
+	
     @Override
     public String toString() {
-        String nomeOrientacaoSentido = orientacao.toString();
-        int anguloSentido = orientacao.getAngulos();
-        return String.format("X=%d, Y=%d (%s - %d°)", this.x, this.y, nomeOrientacaoSentido, anguloSentido);
+    	String orientacaoObjeto = "";
+    	if (hasOrientacao()) {
+	        String nomeOrientacaoSentido = orientacao.toString();
+	        int anguloSentido = orientacao.getAngulos();
+	        
+	        orientacaoObjeto = String.format("(%s - %d)", nomeOrientacaoSentido, anguloSentido);
+    	}
+    	
+    	return String.format("X=%d, Y=%d %s", this.x, this.y, orientacaoObjeto);
     }
 
     @Override
