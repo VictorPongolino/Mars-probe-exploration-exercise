@@ -79,8 +79,8 @@ public class SondaDemo {
         }
     }
 
+    private static Planalto planalto = new Planalto(X, Y);
     public static Sonda criarUnicaSonda(final int x, final int y, final Orientacao orientacao) {
-        Planalto planalto = new Planalto(X, Y);
         System.out.printf("\nPlanalto padrão em (%d, %d) !", X, Y);
         Localizacao localizacao = new Localizacao(x, y, orientacao);
         System.out.printf("\nCriando uma sonda em (%d, %d, %s) !", x, y, orientacao);
